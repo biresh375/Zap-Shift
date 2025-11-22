@@ -16,3 +16,8 @@ body {
   font-style: normal;
   background-color: #eaeced;
 }
+.active {
+  font-size: 18px;
+  font-weight: 500;
+  color: #caeb66;
+}

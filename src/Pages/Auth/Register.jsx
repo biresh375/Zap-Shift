@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 const Register = () => {
+  
   const {
     register,
     handleSubmit,
@@ -36,7 +37,7 @@ const Register = () => {
               required: true,
               minLength: 6,
               pattern: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$/,
-            })}
+            })} 
           />
           {errors.password?.type === "pattern" && (
             <p className="text-red-500">

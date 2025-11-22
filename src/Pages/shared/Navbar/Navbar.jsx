@@ -1,14 +1,20 @@
 import React from "react";
 import Logo from "../../../Components/Logo/Logo";
 import Container from "../../../Components/Container/Container";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
   const links = (
     <>
-      <NavLink to={"/"}>Home</NavLink>
-      <NavLink>About Us</NavLink>
-      <NavLink to="coverage">Coverage</NavLink>
+      <NavLink to={"/"} className={`mr-2.5`}>
+        Home
+      </NavLink>
+      <NavLink to={"/about"} className={`mr-2.5`}>
+        About Us
+      </NavLink>
+      <NavLink to="/coverage" className={`mr-2.5`}>
+        Coverage
+      </NavLink>
     </>
   );
   return (
@@ -45,7 +51,12 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        <Link to={"/login"} className="btn mr-2.5">
+          Log in
+        </Link>
+        <Link to={"/register"} className="btn">
+          Register
+        </Link>
       </div>
     </div>
   );
