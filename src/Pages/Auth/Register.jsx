@@ -1,22 +1,34 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import UseAuth from "../../Hooks/UseAuth";
+import { Link } from "react-router";
+import SocialLogin from "../shared/SocialLogin/SocialLogin";
 
 const Register = () => {
-  
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm();
+
+  const { CreateUser } = UseAuth();
   const handleRegistration = (data) => {
-    console.log(data);
-    reset();
+    CreateUser(data.email, data.password)
+      .then((result) => {
+        console.log(result.user);
+        reset();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit(handleRegistration)}>
-        <fieldset className="fieldset text-[17px]">
+    <div className="card bg-base-100 mt-7.5 shadow-2xl max-w-10/12 mx-auto">
+      <form onSubmit={handleSubmit(handleRegistration)} className="card-body">
+        <h2 className=" text-2xl lg:text-4xl font-bold">Create an Account</h2>
+        <p className="font-semibold">Register with ZapShift</p>
+        <fieldset className="fieldset text-[16px]">
           <label className="label ">Email</label>
           <input
             type="email"
@@ -37,7 +49,7 @@ const Register = () => {
               required: true,
               minLength: 6,
               pattern: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$/,
-            })} 
+            })}
           />
           {errors.password?.type === "pattern" && (
             <p className="text-red-500">
@@ -56,8 +68,15 @@ const Register = () => {
           <div>
             <a className="link link-hover">Forgot password?</a>
           </div>
-          <button className="btn btn-neutral mt-4">Login</button>
+          <button className="btn btn-primary text-black mt-4">Register</button>
         </fieldset>
+        <p>
+          Don’t have any account?{" "}
+          <Link to={"/login"} className="text-[#8FA748] hover:underline">
+            login
+          </Link>
+        </p>
+        <SocialLogin></SocialLogin>
       </form>
     </div>
   );
