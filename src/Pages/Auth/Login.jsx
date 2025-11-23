@@ -14,7 +14,7 @@ const Login = () => {
   };
 
   return (
-    <div className="card bg-base-100 mt-7.5 shadow-2xl max-w-10/12 mx-auto">
+    <div className="card bg-base-100 mt-7.5 shadow-2xl max-w-8/12 mx-auto">
       <form onSubmit={handleSubmit(handleLogin)} className="card-body">
         <h2 className=" text-3xl lg:text-4xl font-bold">Welcome Back</h2>
         <p className="font-semibold">Login with ZapShift</p>

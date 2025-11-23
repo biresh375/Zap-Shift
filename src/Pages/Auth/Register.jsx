@@ -12,23 +12,49 @@ const Register = () => {
     reset,
   } = useForm();
 
-  const { CreateUser } = UseAuth();
+  const { CreateUser, setUser, setLoading } = UseAuth();
   const handleRegistration = (data) => {
+    console.log(data);
     CreateUser(data.email, data.password)
       .then((result) => {
-        console.log(result.user);
+        setUser(result.user);
         reset();
       })
       .catch((err) => {
-        console.log(err);
+        setLoading(false);
+        alert(err.message);
       });
   };
   return (
-    <div className="card bg-base-100 mt-7.5 shadow-2xl max-w-10/12 mx-auto">
+    <div className="card bg-base-100 mt-7.5 shadow-2xl max-w-8/12 mx-auto">
       <form onSubmit={handleSubmit(handleRegistration)} className="card-body">
         <h2 className=" text-2xl lg:text-4xl font-bold">Create an Account</h2>
         <p className="font-semibold">Register with ZapShift</p>
         <fieldset className="fieldset text-[16px]">
+          {/*Photo field */}
+          {/* <input type="file" className="file-input" /> */}
+          <label className="label ">Photo</label>
+          <input
+            type="file"
+            {...register("photo", { required: true })}
+            className="file-input "
+            placeholder="Your Photo"
+          />
+          {errors.photo?.type === "required" && (
+            <p className="text-red-500">photo is required</p>
+          )}
+          {/* Name field */}
+          <label className="label ">Name</label>
+          <input
+            type="text"
+            {...register("name", { required: true })}
+            className="input w-full"
+            placeholder="Enter Your Name"
+          />
+          {errors.name?.type === "required" && (
+            <p className="text-red-500">Name is required</p>
+          )}
+          {/* email field */}
           <label className="label ">Email</label>
           <input
             type="email"

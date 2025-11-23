@@ -1,15 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../../../Components/Logo/Logo";
 import Container from "../../../Components/Container/Container";
 import { Link, NavLink } from "react-router";
+import UseAuth from "../../../Hooks/UseAuth";
+import { FaUserCircle } from "react-icons/fa";
+import Loading from "../../../Components/Loading/Loading";
 
 const Navbar = () => {
+  const { user, logOut } = UseAuth();
+  console.log(user);
+  const [open, setOpen] = useState(false);
+  const [hover, setHover] = useState(false);
+  const handleLogout = () => {
+    logOut()
+      .then(() => {
+        alert("signOUt secessfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const links = (
     <>
       <NavLink to={"/"} className={`mr-2.5`}>
         Home
       </NavLink>
-      <NavLink to={"/about"} className={`mr-2.5`}>
+      <NavLink to={"/aboutus"} className={`mr-2.5`}>
         About Us
       </NavLink>
       <NavLink to="/coverage" className={`mr-2.5`}>
@@ -17,6 +33,7 @@ const Navbar = () => {
       </NavLink>
     </>
   );
+
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -50,12 +67,60 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
-      <div className="navbar-end">
-        <Link to={"/login"} className="btn mr-2.5">
-          Log in
-        </Link>
-        <Link to={"/register"} className="btn">
-          Register
+      {user ? (
+        <div className="navbar-end">
+          <div className="container mx-auto flex justify-end items-center ">
+            {/* <h1 className="text-xl font-semibold"></h1> */}
+
+            {/* Profile Section */}
+            <div className="relative">
+              {/* Profile Image */}
+              <img
+                src={user.photoURL}
+                alt="profile"
+                className="w-10 h-10 rounded-full cursor-pointer border-2 border-primary"
+                onClick={() => setOpen(!open)}
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}
+              />
+
+              {/* Hover → Profile Name */}
+              {hover && !open && (
+                <div className="absolute right-0 mt-2 px-3 py-2 bg-white rounded-lg shadow text-sm font-medium text-nowrap">
+                  {user.displayName}
+                </div>
+              )}
+
+              {/* Click → Logout Button */}
+              {open && (
+                <div className="absolute right-0 mt-2 w-32 bg-white rounded-xl shadow-lg p-3 z-50">
+                  <p className="text-center font-medium mb-2">
+                    {user.displayName}
+                  </p>
+                  <button
+                    onClick={handleLogout}
+                    className="btn btn-primary text-black btn-sm w-full"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="navbar-end">
+          <Link to={"/login"} className="btn mr-2.5">
+            Log in
+          </Link>
+        </div>
+      )}
+      <div>
+        <Link
+          to={"/be-a-Rider"}
+          className="btn btn-primary text-black text-nowrap ml-2.5"
+        >
+          Be a rider
         </Link>
       </div>
     </div>
