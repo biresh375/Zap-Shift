@@ -27,6 +27,7 @@ const Brands = () => {
         We've helped thousands of sales teams
       </h3>
       <Swiper
+      
         loop={true}
         slidesPerView={4}
         centeredSlides={true}
@@ -40,7 +41,7 @@ const Brands = () => {
       >
         {brandLogos.map((logo, index) => (
           <SwiperSlide key={index}>
-            <img src={logo} alt="Brand Logo" />
+            <img className="h-5" src={logo} alt="Brand Logo" />
           </SwiperSlide>
         ))}
       </Swiper>
