@@ -8,7 +8,7 @@ import Loading from "../../../Components/Loading/Loading";
 
 const Navbar = () => {
   const { user, logOut } = UseAuth();
-  console.log(user);
+
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(false);
   const handleLogout = () => {
@@ -17,7 +17,7 @@ const Navbar = () => {
         alert("signOUt secessfully");
       })
       .catch((error) => {
-        console.log(error);
+        alert(error.message);
       });
   };
   const links = (
@@ -27,6 +27,9 @@ const Navbar = () => {
       </NavLink>
       <NavLink to={"/aboutus"} className={`mr-2.5`}>
         About Us
+      </NavLink>
+      <NavLink to="/send-parcel" className={`mr-2.5`}>
+        Send Parcel
       </NavLink>
       <NavLink to="/coverage" className={`mr-2.5`}>
         Coverage
