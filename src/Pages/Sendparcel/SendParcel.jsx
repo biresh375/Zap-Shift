@@ -2,14 +2,13 @@ import React from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
+import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
+import UseAuth from "../../Hooks/UseAuth";
 
 const SendParcel = () => {
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, control } = useForm();
+  const { user } = UseAuth();
+  const axiosSecure = UseAxiosSecure();
 
   const serviceCenterData = useLoaderData();
   const regionDuplicate = serviceCenterData.map((s) => s.region);
@@ -53,6 +52,9 @@ const SendParcel = () => {
       confirmButtonText: "I aggree!",
     }).then((result) => {
       if (result.isConfirmed) {
+        axiosSecure.post("/parcels", data).then((res) => {
+          console.log(res.data);
+        });
         // Swal.fire({
         //   title: "Deleted!",
         //   text: "Your file has been deleted.",
@@ -133,6 +135,7 @@ const SendParcel = () => {
               {...register("senderName")}
               className="input w-full"
               placeholder="Sender Name"
+              defaultValue={user?.displayName}
             />
             <label className="label text-[#0F172A]  font-semibold mt-3">
               Sender Email
@@ -142,6 +145,7 @@ const SendParcel = () => {
               {...register("senderEmail")}
               className="input w-full"
               placeholder="Sender Email"
+              defaultValue={user?.email}
             />
             <fieldset className="fieldset text-[14px]">
               <legend className="fieldset-legend">Your Region</legend>

@@ -34,6 +34,13 @@ const Navbar = () => {
       <NavLink to="/coverage" className={`mr-2.5`}>
         Coverage
       </NavLink>
+      {user && (
+        <>
+          <NavLink to="/dashbord/my-parcels" className={`mr-2.5`}>
+            My Parcels
+          </NavLink>
+        </>
+      )}
     </>
   );
 

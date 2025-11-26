@@ -20,4 +20,7 @@ body {
   font-size: 18px;
   font-weight: 500;
   color: #caeb66;
+  background-color: #03373d;
+  padding:4px 8px;
+  border-radius: 10px;
 }
