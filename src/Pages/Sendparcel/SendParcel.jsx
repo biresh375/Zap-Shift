@@ -1,4 +1,5 @@
 import React from "react";
+import "../Sendparcel/Sendparcel.css";
 import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
@@ -41,25 +42,32 @@ const SendParcel = () => {
         cost = minCharge + extraCharge;
       }
     }
-    console.log("cost", cost);
+    // console.log("cost", cost);
+    data.cost = cost;
     Swal.fire({
       title: "Agree with the cost",
       text: `You will be charged ${cost} taka`,
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "#caeb66",
       cancelButtonColor: "#d33",
       confirmButtonText: "I aggree!",
+      customClass: {
+        confirmButton: "my-confirm-btn",
+        cancelButton: "my-cancel-btn",
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.post("/parcels", data).then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
+          if (res.data.insertedId) {
+            Swal.fire({
+              title: "submited!",
+              text: "Your request has been submited.",
+              icon: "success",
+            });
+          }
         });
-        // Swal.fire({
-        //   title: "Deleted!",
-        //   text: "Your file has been deleted.",
-        //   icon: "success",
-        // });
       }
     });
   };
@@ -112,6 +120,7 @@ const SendParcel = () => {
               Parcel Weight (KG)
             </label>
             <input
+              required
               type="number"
               {...register("parcelWeight")}
               className="input w-full"
@@ -146,6 +155,7 @@ const SendParcel = () => {
               className="input w-full"
               placeholder="Sender Email"
               defaultValue={user?.email}
+              readOnly
             />
             <fieldset className="fieldset text-[14px]">
               <legend className="fieldset-legend">Your Region</legend>

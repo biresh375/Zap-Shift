@@ -1,0 +1,8 @@
+.my-confirm-btn {
+  color: #000 !important; /* change text color */
+  font-weight: bold;
+}
+
+.my-cancel-btn {
+  color: #fff !important;
+}
