@@ -1,7 +1,7 @@
 import React from "react";
 import "../Sendparcel/Sendparcel.css";
 import { useForm, useWatch } from "react-hook-form";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import UseAuth from "../../Hooks/UseAuth";
@@ -10,6 +10,7 @@ const SendParcel = () => {
   const { register, handleSubmit, control } = useForm();
   const { user } = UseAuth();
   const axiosSecure = UseAxiosSecure();
+  const navigate = useNavigate();
 
   const serviceCenterData = useLoaderData();
   const regionDuplicate = serviceCenterData.map((s) => s.region);
@@ -51,7 +52,7 @@ const SendParcel = () => {
       showCancelButton: true,
       confirmButtonColor: "#caeb66",
       cancelButtonColor: "#d33",
-      confirmButtonText: "I aggree!",
+      confirmButtonText: "I aggree and continew to payment!",
       customClass: {
         confirmButton: "my-confirm-btn",
         cancelButton: "my-cancel-btn",
@@ -61,9 +62,10 @@ const SendParcel = () => {
         axiosSecure.post("/parcels", data).then((res) => {
           // console.log(res.data);
           if (res.data.insertedId) {
+            navigate("/dashbord/my-parcels");
             Swal.fire({
               title: "submited!",
-              text: "Your request has been submited.",
+              text: "Your request has been submited. Please payment !",
               icon: "success",
             });
           }

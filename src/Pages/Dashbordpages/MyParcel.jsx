@@ -9,6 +9,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { MdTableView } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import Swal from "sweetalert2";
+import { Link } from "react-router";
 
 const MyParcel = () => {
   const { user } = UseAuth();
@@ -55,7 +56,8 @@ const MyParcel = () => {
               <th>SN:</th>
               <th>Name</th>
               <th>Cost</th>
-              <th>Payment status</th>
+              <th>Payment </th>
+              <th>Delevary status</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -65,7 +67,19 @@ const MyParcel = () => {
                 <th>{index + 1}</th>
                 <td>{parcel.parcelName}</td>
                 <td>{parcel.cost} </td>
-                <td>Pending</td>
+                <td>
+                  {parcel.paymentStatus === "paid" ? (
+                    <span className="text-green-500 font-bold">Paid</span>
+                  ) : (
+                    <Link
+                      to={`/dashbord/payment/${parcel._id}`}
+                      className="btn btn-primary btn-sm text-black"
+                    >
+                      pay
+                    </Link>
+                  )}
+                </td>
+                <td>{parcel.delevaryStatus}</td>
                 <td>
                   <button className="hover:bg-primary btn btn-square">
                     <MdTableView className="text-xl" />

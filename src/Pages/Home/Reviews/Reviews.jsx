@@ -6,7 +6,6 @@ import customerTOP from "../../../assets/customer-top.png";
 
 const Reviews = ({ reviewsPromise }) => {
   const reviews = use(reviewsPromise);
-  console.log(reviews);
   return (
     <>
       <div className="flex flex-col items-center">
