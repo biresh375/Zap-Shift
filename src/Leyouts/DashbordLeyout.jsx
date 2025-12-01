@@ -5,6 +5,7 @@ import { GoSidebarCollapse } from "react-icons/go";
 import { FcHome } from "react-icons/fc";
 import { HiOutlineEmojiHappy } from "react-icons/hi";
 import Container from "../Components/Container/Container";
+import { FaRegCreditCard } from "react-icons/fa";
 
 const DashbordLeyout = () => {
   return (
@@ -65,6 +66,17 @@ const DashbordLeyout = () => {
                 >
                   <HiOutlineEmojiHappy />
                   <span className="is-drawer-close:hidden">My parcelss</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  to={"/dashbord/payment-history"}
+                >
+                  <FaRegCreditCard />
+                  <span className="is-drawer-close:hidden">
+                    Payment history
+                  </span>
                 </NavLink>
               </li>
               {/* List item */}
